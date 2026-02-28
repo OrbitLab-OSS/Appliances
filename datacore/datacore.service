@@ -1,0 +1,18 @@
+[Unit]
+Description=DataCore Bootstrap
+After=syslog.target network.target
+Upholds=patroni.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/datacore init
+RemainAfterExit=yes
+StandardOutput=journal
+StandardError=journal
+Restart=on-failure
+RestartSec=5s
+StartLimitIntervalSec=300
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target

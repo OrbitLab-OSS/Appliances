@@ -1,0 +1,16 @@
+[Unit]
+Description=OrbitLab Sector Gateway Bootstrap
+Wants=network.target
+After=network.target
+Upholds=frr.service nftables.service dnsmasq.service coredns.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/sgwtool init
+ExecStopPost=/usr/bin/rm -f /run/orbitlab/gateway-ready
+RemainAfterExit=yes
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
