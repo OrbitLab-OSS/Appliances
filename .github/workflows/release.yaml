@@ -1,0 +1,153 @@
+name: release
+
+# yamllint disable-line rule:truthy
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+env:
+  PANTS_CONFIG_FILES: pants.ci.toml
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        appliance:
+          - backplane-dns
+          - gateway
+          - relay
+          - dockfs
+          - etcd
+          - datacore
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set version
+        id: version
+        run: |
+          if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
+            VERSION="${GITHUB_REF_NAME#v}"
+          else
+            VERSION="$(git describe --tags --abbrev=0 | sed 's/^v//')"
+          fi
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Configure Pants caching to GitHub Actions Cache
+        uses: actions/github-script@v6
+        with:
+          script: |
+            core.exportVariable('PANTS_REMOTE_STORE_ADDRESS', process.env.ACTIONS_CACHE_URL);
+            core.exportVariable('PANTS_REMOTE_OAUTH_BEARER_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN);
+
+      - name: Install Pants
+        run: curl --proto '=https' --tlsv1.2 -fsSL https://static.pantsbuild.org/setup/get-pants.sh | bash
+
+      - name: Pants Lint ${{ matrix.appliance }}
+        run: pants lint all
+
+      - name: Pants Test ${{ matrix.appliance }}
+        run: pants test all
+
+      - name: Pants Build ${{ matrix.appliance }}
+        run: pants run ${{ matrix.appliance }}:build
+
+      - name: Upload ${{ matrix.appliance }} Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.appliance }}
+          path: ${{ matrix.appliance }}/orbitlab-${{ matrix.appliance }}-*
+          retention-days: 1
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set version
+        id: version
+        run: |
+          if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
+            VERSION="${GITHUB_REF_NAME#v}"
+          else
+            VERSION="$(git describe --tags --abbrev=0 | sed 's/^v//')"
+          fi
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Configure Pants caching to GitHub Actions Cache
+        uses: actions/github-script@v6
+        with:
+          script: |
+            core.exportVariable('PANTS_REMOTE_STORE_ADDRESS', process.env.ACTIONS_CACHE_URL);
+            core.exportVariable('PANTS_REMOTE_OAUTH_BEARER_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN);
+      
+      - name: Install Pants
+        run: curl --proto '=https' --tlsv1.2 -fsSL https://static.pantsbuild.org/setup/get-pants.sh | bash
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          name: OrbitLab Infrastructure ${{ steps.version.outputs.version }}
+          files: artifacts/orbitlab-*
+
+      - name: Commit metadata
+        run: |
+          apt install -y jq
+          DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          declare -a appliances=()
+          for file in artifacts/**; do
+            FILENAME=$(basename "$file")
+            metadata=$(
+              jq -n --arg filename "$FILENAME" \
+              --arg digest "sha256:$(sha256sum "$file" | awk '{print $1}')" \
+              --arg size $(stat -c%s "$file") \
+              --arg download_url "https://github.com/${{ github.repository }}/releases/download/$VERSION/$FILENAME" \
+              '{"filename":$filename,"digest":$digest,"size":$size,"browser_download_url":$download_url}'
+            )
+            appliances+=("$metadata")
+          done
+          assets=$(jq -c -n '$ARGS.positional' --jsonargs "${appliances[@]}")
+          mkdir metadata
+          jq -n --arg version "$VERSION" \
+            --arg published_at "$DATE" \
+            --argjson appliances "$assets" \
+            '{"version": $version, "published_at": $published_at, "appliances": $appliances}' > metadata/appliances.json
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add metadata/metadata.json
+          git commit -m "Update metadata for $VERSION"
+          git push

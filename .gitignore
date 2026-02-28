@@ -1,3 +1,8 @@
+# Repo-related
+orbitlab-*.tar.gz
+orbitlab-*.qcow2
+.pants.d/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
