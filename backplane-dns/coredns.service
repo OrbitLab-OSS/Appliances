@@ -1,0 +1,15 @@
+[Unit]
+Description=OrbitLab Backplane DNS
+After=network.target
+
+[Service]
+WorkingDirectory=/etc/coredns
+ExecStart=/usr/bin/coredns -conf=/etc/coredns/Corefile
+ExecStartPre=/usr/bin/obd-tool init
+ExecReload=/bin/kill -SIGUSR1 $MAINPID
+Restart=always
+StandardOutput=append:/var/log/coredns.log
+StandardError=append:/var/log/coredns.err.log
+
+[Install]
+WantedBy=multi-user.target

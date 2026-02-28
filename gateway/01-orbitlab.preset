@@ -1,0 +1,2 @@
+# See: github.com/proxmox/dab-pve-appliances/blob/master/debian-13-trixie-std-64/Makefile#L8
+disable systemd-networkd-wait-online.service

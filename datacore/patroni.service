@@ -1,0 +1,17 @@
+[Unit]
+Description=DataCore Patroni PostgreSQL Cluster
+Wants=network.target
+After=network.target
+ConditionPathExists=/etc/datacore/patroni.yaml
+
+[Service]
+Type=simple
+User=postgres
+Group=postgres
+ExecStart=/usr/bin/patroni /etc/datacore/patroni.yaml
+KillMode=process
+TimeoutSec=30
+Restart=no
+
+[Install]
+WantedBy=multi-user.target
