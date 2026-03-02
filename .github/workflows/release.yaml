@@ -71,7 +71,7 @@ jobs:
         run: pants run ${{ matrix.appliance }}:build
 
       - name: Upload ${{ matrix.appliance }} Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: ${{ matrix.appliance }}
           path: ${{ matrix.appliance }}/orbitlab-${{ matrix.appliance }}-*
@@ -80,6 +80,8 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     needs: build
+    permissions:
+      contents: write
 
     steps:
       - uses: actions/checkout@v4
