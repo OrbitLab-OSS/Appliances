@@ -124,15 +124,9 @@ jobs:
       - name: List Artifacts
         run: ls -latr artifacts/
 
-      - uses: softprops/action-gh-release@v2
-        with:
-          tag_name: v${{ steps.version.outputs.version }}
-          name: OrbitLab Infrastructure ${{ steps.version.outputs.version }}
-          files: artifacts/orbitlab-*
-
       - name: Commit metadata
         run: |
-          apt install -y jq
+          sudo apt install -y jq
           DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
           declare -a appliances=()
           for file in artifacts/**; do
@@ -154,6 +148,12 @@ jobs:
             '{"version": $version, "published_at": $published_at, "appliances": $appliances}' > metadata/appliances.json
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add metadata/metadata.json
+          git add metadata/appliances.json
           git commit -m "Update metadata for $VERSION"
           git push
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          name: OrbitLab Infrastructure ${{ steps.version.outputs.version }}
+          files: artifacts/orbitlab-*
