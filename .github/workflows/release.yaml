@@ -141,7 +141,7 @@ jobs:
             appliances+=("$metadata")
           done
           assets=$(jq -c -n '$ARGS.positional' --jsonargs "${appliances[@]}")
-          mkdir metadata
+          mkdir -p metadata
           rm -f metadata/appliances.json
           jq -n --arg version "$VERSION" \
             --arg published_at "$DATE" \
