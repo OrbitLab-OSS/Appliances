@@ -34,6 +34,7 @@ trap "cleanup" EXIT INT TERM
 set -o xtrace
 
 # Install build dependencies
+sudo apt update
 sudo apt install -y qemu-utils
 
 # Make directory mount to use as QCOW2 root dir
