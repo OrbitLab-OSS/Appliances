@@ -12,14 +12,18 @@ from starlette.routing import Route
 
 
 class Service(ABC):
-
     def __init__(self, transport, base_url) -> None:
         self._transport = transport
         self._base_url = base_url
 
     async def send(self, event: str, version: str, payload: dict) -> None:
-        async with httpx.AsyncClient(transport=self._transport, base_url=self._base_url, timeout=10.0) as client:
-            response = await client.post("/orbital-relay", json={"event": event, "version": version, "payload": payload})
+        async with httpx.AsyncClient(
+            transport=self._transport, base_url=self._base_url, timeout=10.0
+        ) as client:
+            response = await client.post(
+                "/orbital-relay",
+                json={"event": event, "version": version, "payload": payload},
+            )
         response.raise_for_status()
 
     @abstractmethod
@@ -64,7 +68,7 @@ class DockFSRoutes(Service):
 
         await self.send(event="dockfs.failover", version="v1", payload=payload)
         return Response()
-    
+
     async def reconcile_v1(self, request: Request) -> Response:
         payload = request.json()
         if not payload:
@@ -97,7 +101,7 @@ class OrbitalRelay:
         routes.extend(self.etcd.routes())
         routes.extend(self.datacore.routes())
         routes.extend(self.dock_fs.routes())
-        
+
         app = Starlette(debug=False, routes=routes)
         config = uvicorn.Config(app, host="0.0.0.0", port=80, loop="asyncio")  # noqa: S104
         server = uvicorn.Server(config)
