@@ -150,11 +150,11 @@ jobs:
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
           git add metadata/appliances.json
-          git commit -m "Update metadata for $VERSION"
+          git commit -m "Update metadata for v$VERSION"
           git push
 
       - uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ steps.version.outputs.version }}
-          name: OrbitLab Infrastructure ${{ steps.version.outputs.version }}
+          name: OrbitLab Infrastructure v${{ steps.version.outputs.version }}
           files: artifacts/orbitlab-*
