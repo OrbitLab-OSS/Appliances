@@ -12,9 +12,9 @@ source "$CHROOT/common.sh"
 sudo mkdir "$CHROOT/mnt/etc/coredns" 
 
 # Install custom files
-sudo install -Dm755 "$CHROOT/backplane_dns/coredns" "$CHROOT/mnt/usr/bin/coredns"
-sudo install -Dm755 "$CHROOT/backplane_dns/obd-tool.sh" "$CHROOT/mnt/usr/bin/obd-tool"
-sudo cp "$CHROOT/backplane_dns/coredns.service" "$CHROOT/mnt/usr/lib/systemd/system"
+sudo install -Dm755 "$CHROOT/backplane-dns/coredns" "$CHROOT/mnt/usr/bin/coredns"
+sudo install -Dm755 "$CHROOT/backplane-dns/obd-tool.sh" "$CHROOT/mnt/usr/bin/obd-tool"
+sudo cp "$CHROOT/backplane-dns/coredns.service" "$CHROOT/mnt/usr/lib/systemd/system"
 sudo chroot "$CHROOT/mnt" systemctl enable coredns
 
 cleanup
