@@ -135,7 +135,7 @@ jobs:
               jq -n --arg filename "$FILENAME" \
               --arg digest "sha256:$(sha256sum "$file" | awk '{print $1}')" \
               --arg size $(stat -c%s "$file") \
-              --arg download_url "https://github.com/${{ github.repository }}/releases/download/$VERSION/$FILENAME" \
+              --arg download_url "https://github.com/${{ github.repository }}/releases/download/v$VERSION/$FILENAME" \
               '{"filename":$filename,"digest":$digest,"size":$size,"browser_download_url":$download_url}'
             )
             appliances+=("$metadata")
