@@ -1,0 +1,12 @@
+[Unit]
+Description=OrbitLab's Orbital Relay
+Wants=network.target
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/orbital-relay
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,12 @@
+[Unit]
+Description=OrbitLab ETCD Bootstrap
+Wants=network.target
+After=network.target
+ConditionPathExists=!/etc/default/etcd
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/etcd-mgr init
+
+[Install]
+WantedBy=multi-user.target
