@@ -1,41 +1,41 @@
 {
   "version": "0.0.1",
-  "published_at": "2026-03-02T22:18:24Z",
+  "published_at": "2026-03-06T15:38:47Z",
   "appliances": [
     {
       "filename": "orbitlab-backplane-dns-0.0.1.tar.gz",
-      "digest": "sha256:d954aacb32ffd4fc12bb853a56fc492d01bd0638ffdb9e51348c2a312b9b3e61",
-      "size": "213840045",
+      "digest": "sha256:ec622c5b331edb6b64affeb9681b6d0d23ae682b034046328cdec1c5f4e0fb55",
+      "size": "213844716",
       "browser_download_url": "https://github.com/OrbitLab-OSS/Appliances/releases/download/v0.0.1/orbitlab-backplane-dns-0.0.1.tar.gz"
     },
     {
       "filename": "orbitlab-datacore-0.0.1.tar.gz",
-      "digest": "sha256:5b4ba1a45d5cae2108190cf9a8ab8d466453d3bfb6737c6fa01a55cc57ec067c",
-      "size": "337800132",
+      "digest": "sha256:eb93c531ef6dfb5b94bec43b0ba28ad1089b6b3bb5b1e2586f5577c8cab97d94",
+      "size": "337784266",
       "browser_download_url": "https://github.com/OrbitLab-OSS/Appliances/releases/download/v0.0.1/orbitlab-datacore-0.0.1.tar.gz"
     },
     {
       "filename": "orbitlab-dockfs-amd64-0.0.1.qcow2",
-      "digest": "sha256:79bf9af82835e3a71e3d8be3c12be9abd555fbfa7919d4323732ca0090a637eb",
-      "size": "856424448",
+      "digest": "sha256:929371f2189250c83767aa7de09e14fdf18b29ff85798eb1b70542b8d0f11b9f",
+      "size": "860422144",
       "browser_download_url": "https://github.com/OrbitLab-OSS/Appliances/releases/download/v0.0.1/orbitlab-dockfs-amd64-0.0.1.qcow2"
     },
     {
       "filename": "orbitlab-etcd-0.0.1.tar.gz",
-      "digest": "sha256:db9aedecf85af3b1540581a53855ab17f7cb146af6e1904970729ae02f6b5779",
-      "size": "213016571",
+      "digest": "sha256:9d0ed929f43f40112028071002be731073e9c3d4e02a3bef4f56da4af2ac23b2",
+      "size": "213021123",
       "browser_download_url": "https://github.com/OrbitLab-OSS/Appliances/releases/download/v0.0.1/orbitlab-etcd-0.0.1.tar.gz"
     },
     {
       "filename": "orbitlab-gateway-0.0.1.tar.gz",
-      "digest": "sha256:59de089b3b907eb2fc89e0c8f439995b43c7b392521711440eacfcc3d6305dfe",
-      "size": "225816787",
+      "digest": "sha256:59f098a6ce5007400dd0c685b4493e94e9d8e2dbebf82503aa559541956e5199",
+      "size": "225806118",
       "browser_download_url": "https://github.com/OrbitLab-OSS/Appliances/releases/download/v0.0.1/orbitlab-gateway-0.0.1.tar.gz"
     },
     {
       "filename": "orbitlab-relay-0.0.1.tar.gz",
-      "digest": "sha256:710d79edcb13b44f8edfb93565050d1bf0dfaf129efdabd1db3574f0b079fd2c",
-      "size": "192789531",
+      "digest": "sha256:6d9e27f095a6ffd91a4e2c2f44ea3c2e2d67bdcfacbd95ef01bf93cfe7227668",
+      "size": "192782366",
       "browser_download_url": "https://github.com/OrbitLab-OSS/Appliances/releases/download/v0.0.1/orbitlab-relay-0.0.1.tar.gz"
     }
   ]
