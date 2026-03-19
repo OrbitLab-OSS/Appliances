@@ -60,6 +60,7 @@ sudo mount --bind /run "$CHROOT/mnt/run"
 
 # Update, Upgrade, and Install
 sudo chroot "$CHROOT/mnt" apt-get update
+sudo chroot "$CHROOT/mnt" apt-get purge -y grub-cloud-amd64 grub-pc grub-efi-amd64
 sudo chroot "$CHROOT/mnt" apt-get upgrade -y
 sudo chroot "$CHROOT/mnt" apt-get install -y qemu-guest-agent nfs-server keepalived ipcalc
 sudo cp dockfs.sh "$CHROOT/mnt/usr/bin/dockfs"
