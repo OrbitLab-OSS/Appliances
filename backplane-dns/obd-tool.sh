@@ -19,18 +19,19 @@ EOL
 
 initializeBackplaneDNS() {
     [ -f /etc/coredns/Corefile ] && return 0
-    local ADDRESS=$(ip addr show eth0 | grep "inet\b" | grep "brd" | awk '{print $2}')
-    local CIDR="$(ipcalc -n $ADDRESS | awk '/Network/ {print $2}')"
-    createZoneFile internal "${ADDRESS%/*}"
-    createZoneFile external "${ADDRESS%/*}"
-    createCorefile
+    local address=$(ip addr show eth0 | grep "inet\b" | grep "brd" | awk '{print $2}')
+    local cidr="$(ipcalc -n "$address" | awk '/Network/ {print $2}')"
+    createZoneFile internal "${address%/*}"
+    createZoneFile external "${address%/*}"
+    createCorefile "$cidr"
 }
 
 createCorefile() {
+    local cidr="$1"
     cat >/etc/coredns/Corefile <<EOL
 . {
     view Internal {
-        expr incidr(client_ip(), '$CIDR')
+        expr incidr(client_ip(), '$cidr')
     }
 
     file /etc/coredns/internal.zone orbitlab.internal {
