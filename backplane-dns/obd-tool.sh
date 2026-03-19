@@ -11,6 +11,10 @@ createZoneFile() {
 
 ns.orbitlab.internal. 300 IN A $dns_address
 EOL
+    if [ "$zone_type" == "internal" ]; then
+        IFS='.' read -r a b c d <<< "$dns_address"
+        echo "orbital-relay.orbitlab.internal. 300 IN A $a.$b.$c.$((d+1))" >> /etc/coredns/internal.zone
+    fi
 }
 
 initializeBackplaneDNS() {
