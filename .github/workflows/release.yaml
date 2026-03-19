@@ -151,7 +151,7 @@ jobs:
           git config --local user.name "GitHub Actions"
           git add metadata/appliances.json
           git commit -m "Update metadata for v$VERSION"
-          git push
+          git push origin HEAD:main
 
       - uses: softprops/action-gh-release@v2
         with:
