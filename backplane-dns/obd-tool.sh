@@ -19,7 +19,7 @@ EOL
 
 initializeBackplaneDNS() {
     [ -f /etc/coredns/Corefile ] && return 0
-    local ADDRESS=$(ip addr show eth0 | grep "inet\b" | grep "brd" | awk '{print $2}' | cut -d'/' -f1)
+    local ADDRESS=$(ip addr show eth0 | grep "inet\b" | grep "brd" | awk '{print $2}')
     local CIDR="$(ipcalc -n $ADDRESS | awk '/Network/ {print $2}')"
     createZoneFile internal "${ADDRESS%/*}"
     createZoneFile external "${ADDRESS%/*}"
