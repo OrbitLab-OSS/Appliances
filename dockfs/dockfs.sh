@@ -38,8 +38,8 @@ initializeDockFS() {
 
 configureKeepalived() {
     local vip="$1"
-    local virtual_router_id="$1"
-    local auth_secret="$1"
+    local virtual_router_id="$2"
+    local auth_secret="$3"
     cat >/etc/keepalived/keepalived.conf <<EOL
 global_defs {
     router_id DOCKFS
