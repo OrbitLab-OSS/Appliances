@@ -1,42 +1,42 @@
 {
-  "version": "0.0.2",
-  "published_at": "2026-03-19T22:34:05Z",
+  "version": "0.0.4",
+  "published_at": "2026-04-01T18:35:44Z",
   "appliances": [
     {
-      "filename": "orbitlab-backplane-dns-0.0.2.tar.gz",
-      "digest": "sha256:8a4ce9ba66fc2271733976fb4431733ff6dba557749e7b48173acdb5faaa6099",
-      "size": "213872540",
-      "browser_download_url": "https://github.com/OrbitLab-OSS/Appliances/releases/download/v0.0.2/orbitlab-backplane-dns-0.0.2.tar.gz"
+      "filename": "orbitlab-backplane-dns-0.0.4.tar.gz",
+      "digest": "sha256:9aeb5d6e2f210f6ca6396c132f8836a232cbbc478ca39d4b68ac773824c68188",
+      "size": "213867606",
+      "browser_download_url": "https://github.com/OrbitLab-OSS/Appliances/releases/download/v0.0.4/orbitlab-backplane-dns-0.0.4.tar.gz"
     },
     {
-      "filename": "orbitlab-datacore-0.0.2.tar.gz",
-      "digest": "sha256:82157c0606d903b729b4061ae3616e3d72205e1c388d739a4574be6063bc031d",
-      "size": "337856140",
-      "browser_download_url": "https://github.com/OrbitLab-OSS/Appliances/releases/download/v0.0.2/orbitlab-datacore-0.0.2.tar.gz"
+      "filename": "orbitlab-datacore-0.0.4.tar.gz",
+      "digest": "sha256:74774777ff511be878cd2222a27df708bad2bc5fc90d83af44cd3847858c9998",
+      "size": "337864535",
+      "browser_download_url": "https://github.com/OrbitLab-OSS/Appliances/releases/download/v0.0.4/orbitlab-datacore-0.0.4.tar.gz"
     },
     {
-      "filename": "orbitlab-dockfs-amd64-0.0.2.qcow2",
-      "digest": "sha256:c18ae1b9aa820eeea58c956d49578143203a59802330b73f17bb592b20d89142",
-      "size": "1143930880",
-      "browser_download_url": "https://github.com/OrbitLab-OSS/Appliances/releases/download/v0.0.2/orbitlab-dockfs-amd64-0.0.2.qcow2"
+      "filename": "orbitlab-dockfs-amd64-0.0.4.qcow2",
+      "digest": "sha256:4190f038c277e50c3048054ef9fd2d23c4666176ec7c431ee44e376a80be62ac",
+      "size": "1201143808",
+      "browser_download_url": "https://github.com/OrbitLab-OSS/Appliances/releases/download/v0.0.4/orbitlab-dockfs-amd64-0.0.4.qcow2"
     },
     {
-      "filename": "orbitlab-etcd-0.0.2.tar.gz",
-      "digest": "sha256:d544dcd57116e609fda48039a4e29279d830327f99f606127ed10c18c984bed5",
-      "size": "213049655",
-      "browser_download_url": "https://github.com/OrbitLab-OSS/Appliances/releases/download/v0.0.2/orbitlab-etcd-0.0.2.tar.gz"
+      "filename": "orbitlab-etcd-0.0.4.tar.gz",
+      "digest": "sha256:7612e88a36a5306ea79217d188121572bb1c359d187f9414595515ffe30aed18",
+      "size": "213050892",
+      "browser_download_url": "https://github.com/OrbitLab-OSS/Appliances/releases/download/v0.0.4/orbitlab-etcd-0.0.4.tar.gz"
     },
     {
-      "filename": "orbitlab-gateway-0.0.2.tar.gz",
-      "digest": "sha256:d95b799c3ed9ae202c820675b423a3617625791343a6a7b546808b6e222efefc",
-      "size": "225838771",
-      "browser_download_url": "https://github.com/OrbitLab-OSS/Appliances/releases/download/v0.0.2/orbitlab-gateway-0.0.2.tar.gz"
+      "filename": "orbitlab-gateway-0.0.4.tar.gz",
+      "digest": "sha256:587683c7b6fcef657c03223481edbcbc97970197b348085fd9885a735c7c6138",
+      "size": "225814486",
+      "browser_download_url": "https://github.com/OrbitLab-OSS/Appliances/releases/download/v0.0.4/orbitlab-gateway-0.0.4.tar.gz"
     },
     {
-      "filename": "orbitlab-relay-0.0.2.tar.gz",
-      "digest": "sha256:b4e41d040902877f9d09de0d6baeaa96e0da3d1d08e62247b457547ca3b74503",
-      "size": "192812009",
-      "browser_download_url": "https://github.com/OrbitLab-OSS/Appliances/releases/download/v0.0.2/orbitlab-relay-0.0.2.tar.gz"
+      "filename": "orbitlab-relay-0.0.4.tar.gz",
+      "digest": "sha256:c1e554ce76e7feefad184beff966d13b6eb4325377da552dc0f50b318acab82b",
+      "size": "192986763",
+      "browser_download_url": "https://github.com/OrbitLab-OSS/Appliances/releases/download/v0.0.4/orbitlab-relay-0.0.4.tar.gz"
     }
   ]
 }
