@@ -2,6 +2,7 @@
 
 from abc import ABC, abstractmethod
 import asyncio
+import json
 
 import httpx
 import uvicorn
@@ -22,7 +23,7 @@ class Service(ABC):
         ) as client:
             response = await client.post(
                 "/orbital-relay",
-                json={"event": event, "version": version, "payload": payload},
+                json={"event": event, "version": version, "payload": json.dumps(payload)},
             )
         response.raise_for_status()
 
@@ -32,7 +33,7 @@ class Service(ABC):
 
 class ETCDRoutes(Service):
     async def failover_v1(self, request: Request) -> Response:
-        payload = request.json()
+        payload = await request.json()
         if not payload:
             return Response(status_code=401, content="No payload")
 
@@ -47,7 +48,7 @@ class ETCDRoutes(Service):
 
 class DataCoreRoutes(Service):
     async def event_v1(self, request: Request) -> Response:
-        payload = request.json()
+        payload = await request.json()
         if not payload:
             return Response(status_code=401, content="No payload")
 
@@ -62,7 +63,7 @@ class DataCoreRoutes(Service):
 
 class DockFSRoutes(Service):
     async def failover_v1(self, request: Request) -> Response:
-        payload = request.json()
+        payload = await request.json()
         if not payload:
             return Response(status_code=401, content="No payload")
 
@@ -70,7 +71,7 @@ class DockFSRoutes(Service):
         return Response()
 
     async def reconcile_v1(self, request: Request) -> Response:
-        payload = request.json()
+        payload = await request.json()
         if not payload:
             return Response(status_code=401, content="No payload")
 

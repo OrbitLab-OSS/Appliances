@@ -113,6 +113,10 @@ case $COMMAND in
     init)
         initializeMember
         ;;
+    health-check)
+        ADDRESS=$(ip addr show eth0 | grep "inet\b" | awk '{print $2}')
+        etcdctl --endpoints="${ADDRESS%/*}:2379" endpoint health
+        ;;
     failover)
         emitFailureEvent
         ;;
