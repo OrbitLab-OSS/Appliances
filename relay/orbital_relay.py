@@ -23,7 +23,11 @@ class Service(ABC):
         ) as client:
             response = await client.post(
                 "/orbital-relay",
-                json={"event": event, "version": version, "payload": json.dumps(payload)},
+                json={
+                    "event": event,
+                    "version": version,
+                    "payload": json.dumps(payload),
+                },
             )
         response.raise_for_status()
 
