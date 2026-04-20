@@ -18,8 +18,8 @@ sudo mkdir "$CHROOT/mnt/var/local/dnsmasq"
 sudo mkdir "$CHROOT/mnt/etc/systemd/system-preset"
 
 # Install custom files
-sudo install -Dm755 "$CHROOT/gateway/sgwtool.sh" "$CHROOT/mnt/usr/bin/sgwtool"
-sudo install -Dm755 "$CHROOT/gateway/coredns" "$CHROOT/mnt/usr/bin/coredns"
+sudo install -Dm755 "$CHROOT/gateway/gateway-init.sh" "$CHROOT/mnt/usr/bin/gateway-init"
+sudo install -Dm755 "$CHROOT/coredns/coredns" "$CHROOT/mnt/usr/bin/coredns"
 sudo install -Dm755 "$CHROOT/gateway/dhcp-to-hosts.sh" "$CHROOT/mnt/var/local/dnsmasq"
 sudo cp "$CHROOT/gateway/sector-gateway.service" "$CHROOT/mnt/usr/lib/systemd/system"
 sudo cp "$CHROOT/gateway/coredns.service" "$CHROOT/mnt/usr/lib/systemd/system"

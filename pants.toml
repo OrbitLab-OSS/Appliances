@@ -6,7 +6,8 @@ backend_packages = [
     "pants.backend.experimental.python.lint.ruff.check",
     "pants.backend.experimental.python.lint.ruff.format",
     "pants.backend.shell",
-    "pants.backend.experimental.tools.yamllint"
+    "pants.backend.experimental.tools.yamllint",
+    "pants.backend.docker",
 ]
 
 [anonymous-telemetry]
@@ -41,3 +42,7 @@ use_coverage = true
 
 [ruff]
 version = "0.11.5"
+
+[docker]
+use_buildx = true
+build_verbose = true

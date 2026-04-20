@@ -5,7 +5,7 @@ After=network.target
 [Service]
 WorkingDirectory=/etc/coredns
 ExecStart=/usr/bin/coredns -conf=/etc/coredns/Corefile
-ExecStartPre=/usr/bin/obd-tool init
+ExecStartPre=/usr/bin/backplane-init
 ExecReload=/bin/kill -SIGUSR1 $MAINPID
 Restart=always
 StandardOutput=append:/var/log/coredns.log

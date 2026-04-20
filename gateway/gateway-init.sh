@@ -2,6 +2,7 @@
 
 set -eou pipefail
 
+SECTOR_ID="$(hostname | sed -nE 's/^(olvn[1-9][0-9]{3})-gw$/\1/p')" && [ -n "$SECTOR_ID" ] || { echo "Invalid sector gateway hostname: $(hostname)" >&2; exit 1; }
 SECTOR_ADDRESS=$(ip addr show eth0 | grep "inet\b" | grep "brd" | awk '{print $2}')
 SECTOR_CIDR=$(ipcalc -n $SECTOR_ADDRESS | awk '/Network/ {print $2}')
 BACKPLANE_ADDRESS=$(ip addr show eth1 | grep "inet\b" | grep "brd" | awk '{print $2}')
@@ -64,13 +65,13 @@ EOL
 }
 
 configureCoreDNS() {
-  echo "Creating /etc/coredns/Corefile with ${DNS_ADDRESS%/*} and $SECTOR_CIDR"
+  echo "Creating ${SECTOR_ID} /etc/coredns/Corefile with ${DNS_ADDRESS%/*} and ${SECTOR_CIDR}"
   cat >/etc/coredns/Corefile <<EOL
 . {
   bind ${DNS_ADDRESS%/*}
 
   acl {
-    allow net $SECTOR_CIDR
+    allow net ${SECTOR_CIDR}
     drop
   }
 
@@ -78,6 +79,11 @@ configureCoreDNS() {
     ttl 30
     reload 5s
     fallthrough
+  }
+
+  rewrite stop {
+    name suffix sector.internal. ${SECTOR_ID}.sector.internal.
+    answer auto
   }
 
   forward . /etc/resolv.conf {
@@ -115,36 +121,16 @@ dhcp-option=option:dns-server,${DNS_ADDRESS%/*}
 EOL
 }
 
-COMMAND="$1"
-case $COMMAND in
-  init)
-    echo "Assigned eth0 $SECTOR_ADDRESS from $SECTOR_CIDR"
-    echo "Assigned eth1 $BACKPLANE_ADDRESS from $BACKPLANE_CIDR"
-    echo "Assigned eth2 $DNS_ADDRESS from $SECTOR_CIDR"
+echo "Assigned eth0 $SECTOR_ADDRESS from $SECTOR_CIDR"
+echo "Assigned eth1 $BACKPLANE_ADDRESS from $BACKPLANE_CIDR"
+echo "Assigned eth2 $DNS_ADDRESS from $SECTOR_CIDR"
 
-    set -o xtrace
-    
-    configureFrr
-    configureNftables
-    configureCoreDNS
-    configureDnsmasq
+set -o xtrace
 
-    mkdir -p /run/orbitlab
-    touch /run/orbitlab/gateway-ready
-    ;;
-  add-record)
-    IP="${2:-}"
-    HOST="${3:-}"
-    [ -z "$IP" ] && echo "sgwtool add-record IPV4_ADDRESS HOST" && exit 1
-    [ -z "$HOST" ] && echo "sgwtool add-record IPV4_ADDRESS HOST" && exit 1
-    /var/local/dnsmasq/dhcp-to-hosts.sh add record "$IP" "$HOST"
-    ;;
-  delete-record)
-    IP="${2:-}"
-    [ -z "$IP" ] && echo "sgwtool delete-record IPV4_ADDRESS" && exit 1
-    /var/local/dnsmasq/dhcp-to-hosts.sh del record "$IP"
-    ;;
-  *)
-    echo "Unknown command: $COMMAND" && exit 1
-    ;;
-esac
+configureFrr
+configureNftables
+configureCoreDNS
+configureDnsmasq
+
+mkdir -p /run/orbitlab
+touch /run/orbitlab/gateway-ready

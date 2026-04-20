@@ -4,12 +4,12 @@
 //
 // --- BEGIN PANTS LOCKFILE METADATA: DO NOT EDIT OR REMOVE ---
 // {
-//   "version": 4,
+//   "version": 7,
 //   "valid_for_interpreter_constraints": [
 //     "CPython>=3.12"
 //   ],
 //   "generated_with_requirements": [
-//     "httpx==0.28.1",
+//     "redis",
 //     "starlette==0.40.0",
 //     "uvicorn"
 //   ],
@@ -18,7 +18,11 @@
 //   "only_binary": [],
 //   "no_binary": [],
 //   "excludes": [],
-//   "overrides": []
+//   "overrides": [],
+//   "sources": [],
+//   "lock_style": "universal",
+//   "complete_platforms": [],
+//   "uploaded_prior_to": null
 // }
 // --- END PANTS LOCKFILE METADATA ---
 
@@ -60,31 +64,13 @@
           "artifacts": [
             {
               "algorithm": "sha256",
-              "hash": "027692e4402ad994f1c42e52a4997a9763c646b73e4096e4d5d6db8af1d6f0fa",
-              "url": "https://files.pythonhosted.org/packages/9a/3c/c17fb3ca2d9c3acff52e30b309f538586f9f5b9c9cf454f3845fc9af4881/certifi-2026.2.25-py3-none-any.whl"
+              "hash": "1924d2c27c5653561cd2cae4548d1406039cb79b858b747cfea24924bbc1616d",
+              "url": "https://files.pythonhosted.org/packages/e4/20/71885d8b97d4f3dde17b1fdb92dbd4908b00541c5a3379787137285f602e/click-8.3.2-py3-none-any.whl"
             },
             {
               "algorithm": "sha256",
-              "hash": "e887ab5cee78ea814d3472169153c2d12cd43b14bd03329a39a9c6e2e80bfba7",
-              "url": "https://files.pythonhosted.org/packages/af/2d/7bf41579a8986e348fa033a31cdd0e4121114f6bce2457e8876010b092dd/certifi-2026.2.25.tar.gz"
-            }
-          ],
-          "project_name": "certifi",
-          "requires_dists": [],
-          "requires_python": ">=3.7",
-          "version": "2026.2.25"
-        },
-        {
-          "artifacts": [
-            {
-              "algorithm": "sha256",
-              "hash": "981153a64e25f12d547d3426c367a4857371575ee7ad18df2a6183ab0545b2a6",
-              "url": "https://files.pythonhosted.org/packages/98/78/01c019cdb5d6498122777c1a43056ebb3ebfeef2076d9d026bfe15583b2b/click-8.3.1-py3-none-any.whl"
-            },
-            {
-              "algorithm": "sha256",
-              "hash": "12ff4785d337a1bb490bb7e9c2b1ee5da3112e94a8622f26a6c77f5d2fc6842a",
-              "url": "https://files.pythonhosted.org/packages/3d/fa/656b739db8587d7b5dfa22e22ed02566950fbfbcdc20311993483657a5c0/click-8.3.1.tar.gz"
+              "hash": "14162b8b3b3550a7d479eafa77dfd3c38d9dc8951f6f69c78913a8f9a7540fd5",
+              "url": "https://files.pythonhosted.org/packages/57/75/31212c6bf2503fdf920d87fee5d7a86a2e3bcf444984126f13d8e4016804/click-8.3.2.tar.gz"
             }
           ],
           "project_name": "click",
@@ -92,7 +78,7 @@
             "colorama; platform_system == \"Windows\""
           ],
           "requires_python": ">=3.10",
-          "version": "8.3.1"
+          "version": "8.3.2"
         },
         {
           "artifacts": [
@@ -116,62 +102,6 @@
           "artifacts": [
             {
               "algorithm": "sha256",
-              "hash": "2d400746a40668fc9dec9810239072b40b4484b640a8c38fd654a024c7a1bf55",
-              "url": "https://files.pythonhosted.org/packages/7e/f5/f66802a942d491edb555dd61e3a9961140fd64c90bce1eafd741609d334d/httpcore-1.0.9-py3-none-any.whl"
-            },
-            {
-              "algorithm": "sha256",
-              "hash": "6e34463af53fd2ab5d807f399a9b45ea31c3dfa2276f15a2c3f00afff6e176e8",
-              "url": "https://files.pythonhosted.org/packages/06/94/82699a10bca87a5556c9c59b5963f2d039dbd239f25bc2a63907a05a14cb/httpcore-1.0.9.tar.gz"
-            }
-          ],
-          "project_name": "httpcore",
-          "requires_dists": [
-            "anyio<5.0,>=4.0; extra == \"asyncio\"",
-            "certifi",
-            "h11>=0.16",
-            "h2<5,>=3; extra == \"http2\"",
-            "socksio==1.*; extra == \"socks\"",
-            "trio<1.0,>=0.22.0; extra == \"trio\""
-          ],
-          "requires_python": ">=3.8",
-          "version": "1.0.9"
-        },
-        {
-          "artifacts": [
-            {
-              "algorithm": "sha256",
-              "hash": "d909fcccc110f8c7faf814ca82a9a4d816bc5a6dbfea25d6591d6985b8ba59ad",
-              "url": "https://files.pythonhosted.org/packages/2a/39/e50c7c3a983047577ee07d2a9e53faf5a69493943ec3f6a384bdc792deb2/httpx-0.28.1-py3-none-any.whl"
-            },
-            {
-              "algorithm": "sha256",
-              "hash": "75e98c5f16b0f35b567856f597f06ff2270a374470a5c2392242528e3e3e42fc",
-              "url": "https://files.pythonhosted.org/packages/b1/df/48c586a5fe32a0f01324ee087459e112ebb7224f646c0b5023f5e79e9956/httpx-0.28.1.tar.gz"
-            }
-          ],
-          "project_name": "httpx",
-          "requires_dists": [
-            "anyio",
-            "brotli; platform_python_implementation == \"CPython\" and extra == \"brotli\"",
-            "brotlicffi; platform_python_implementation != \"CPython\" and extra == \"brotli\"",
-            "certifi",
-            "click==8.*; extra == \"cli\"",
-            "h2<5,>=3; extra == \"http2\"",
-            "httpcore==1.*",
-            "idna",
-            "pygments==2.*; extra == \"cli\"",
-            "rich<14,>=10; extra == \"cli\"",
-            "socksio==1.*; extra == \"socks\"",
-            "zstandard>=0.18.0; extra == \"zstd\""
-          ],
-          "requires_python": ">=3.8",
-          "version": "0.28.1"
-        },
-        {
-          "artifacts": [
-            {
-              "algorithm": "sha256",
               "hash": "771a87f49d9defaf64091e6e6fe9c18d4833f140bd19464795bc32d966ca37ea",
               "url": "https://files.pythonhosted.org/packages/0e/61/66938bbb5fc52dbdf84594873d5b51fb1f7c7794e9c0f5bd885f30bc507b/idna-3.11-py3-none-any.whl"
             },
@@ -190,6 +120,36 @@
           ],
           "requires_python": ">=3.8",
           "version": "3.11"
+        },
+        {
+          "artifacts": [
+            {
+              "algorithm": "sha256",
+              "hash": "a9c74a5c893a5ef8455a5adb793a31bb70feb821c86eccb62eebef5a19c429ec",
+              "url": "https://files.pythonhosted.org/packages/74/3a/95deec7db1eb53979973ebd156f3369a72732208d1391cd2e5d127062a32/redis-7.4.0-py3-none-any.whl"
+            },
+            {
+              "algorithm": "sha256",
+              "hash": "64a6ea7bf567ad43c964d2c30d82853f8df927c5c9017766c55a1d1ed95d18ad",
+              "url": "https://files.pythonhosted.org/packages/7b/7f/3759b1d0d72b7c92f0d70ffd9dc962b7b7b5ee74e135f9d7d8ab06b8a318/redis-7.4.0.tar.gz"
+            }
+          ],
+          "project_name": "redis",
+          "requires_dists": [
+            "async-timeout>=4.0.3; python_full_version < \"3.11.3\"",
+            "cryptography>=36.0.1; extra == \"ocsp\"",
+            "hiredis>=3.2.0; extra == \"hiredis\"",
+            "opentelemetry-api>=1.39.1; extra == \"otel\"",
+            "opentelemetry-exporter-otlp-proto-http>=1.39.1; extra == \"otel\"",
+            "opentelemetry-sdk>=1.39.1; extra == \"otel\"",
+            "pybreaker>=1.4.0; extra == \"circuit-breaker\"",
+            "pyjwt>=2.9.0; extra == \"jwt\"",
+            "pyopenssl>=20.0.1; extra == \"ocsp\"",
+            "requests>=2.31.0; extra == \"ocsp\"",
+            "xxhash~=3.6.0; extra == \"xxhash\""
+          ],
+          "requires_python": ">=3.10",
+          "version": "7.4.0"
         },
         {
           "artifacts": [
@@ -239,13 +199,13 @@
           "artifacts": [
             {
               "algorithm": "sha256",
-              "hash": "96c30f5c7abe6f74ae8900a70e92b85ad6613b745d4879eb9b16ccad15645359",
-              "url": "https://files.pythonhosted.org/packages/0a/89/f8827ccff89c1586027a105e5630ff6139a64da2515e24dafe860bd9ae4d/uvicorn-0.42.0-py3-none-any.whl"
+              "hash": "ce937c99a2cc70279556967274414c087888e8cec9f9c94644dfca11bd3ced89",
+              "url": "https://files.pythonhosted.org/packages/b7/23/a5bbd9600dd607411fa644c06ff4951bec3a4d82c4b852374024359c19c0/uvicorn-0.44.0-py3-none-any.whl"
             },
             {
               "algorithm": "sha256",
-              "hash": "9b1f190ce15a2dd22e7758651d9b6d12df09a13d51ba5bf4fc33c383a48e1775",
-              "url": "https://files.pythonhosted.org/packages/e3/ad/4a96c425be6fb67e0621e62d86c402b4a17ab2be7f7c055d9bd2f638b9e2/uvicorn-0.42.0.tar.gz"
+              "hash": "6c942071b68f07e178264b9152f1f16dfac5da85880c4ce06366a96d70d4f31e",
+              "url": "https://files.pythonhosted.org/packages/5e/da/6eee1ff8b6cbeed47eeb5229749168e81eb4b7b999a1a15a7176e51410c9/uvicorn-0.44.0.tar.gz"
             }
           ],
           "project_name": "uvicorn",
@@ -262,9 +222,10 @@
             "websockets>=10.4; extra == \"standard\""
           ],
           "requires_python": ">=3.10",
-          "version": "0.42.0"
+          "version": "0.44.0"
         }
       ],
+      "marker": null,
       "platform_tag": null
     }
   ],
@@ -272,11 +233,11 @@
   "only_wheels": [],
   "overridden": [],
   "path_mappings": {},
-  "pex_version": "2.55.2",
+  "pex_version": "2.92.2",
   "pip_version": "24.2",
   "prefer_older_binary": false,
   "requirements": [
-    "httpx==0.28.1",
+    "redis",
     "starlette==0.40.0",
     "uvicorn"
   ],
