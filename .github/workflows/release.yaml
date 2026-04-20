@@ -24,7 +24,6 @@ jobs:
         appliance:
           - backplane-dns
           - gateway
-          - relay
           - dockfs
           - etcd
           - datacore
