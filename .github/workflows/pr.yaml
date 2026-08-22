@@ -14,16 +14,6 @@ jobs:
     permissions:
       contents: write
 
-    strategy:
-      fail-fast: false
-      matrix:
-        appliance:
-          - backplane-dns
-          - gateway
-          - dockfs
-          - etcd
-          - datacore
-
     steps:
       - uses: actions/checkout@v4
         with:
@@ -56,11 +46,11 @@ jobs:
       - name: Install Pants
         run: curl --proto '=https' --tlsv1.2 -fsSL https://static.pantsbuild.org/setup/get-pants.sh | bash
 
-      - name: Pants Lint ${{ matrix.appliance }}
+      - name: Pants Lint
         run: pants lint all
 
-      - name: Pants Test ${{ matrix.appliance }}
+      - name: Pants Test
         run: pants test all
 
-      - name: Pants Build ${{ matrix.appliance }}
-        run: pants run ${{ matrix.appliance }}:build
+      - name: Pants Build
+        run: pants package all

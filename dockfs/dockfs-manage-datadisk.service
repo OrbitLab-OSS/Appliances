@@ -1,0 +1,10 @@
+[Unit]
+Description=DockFS DataDisk Management
+After=systemd-udevd.service network-online.target
+Wants=systemd-udev-settle.service network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/dockfs-datadisk-config reconcile
+TimeoutStartSec=0
+RemainAfterExit=yes

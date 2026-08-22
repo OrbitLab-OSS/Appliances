@@ -1,8 +1,8 @@
 shell_source(name="build-script", source="build.sh")
 
-shell_source(name="datacore", source="datacore.sh")
+shell_sources(name="wardlink-scripts", sources=["wardlink*.sh"])
 
-files(name="services", sources=["*.service", "*.conf"])
+files(name="systemd", sources=["*.service", "*.network", "*.conf"])
 
 package_shell_command(
     name="appliance",
@@ -27,11 +27,11 @@ package_shell_command(
         "//:common",
         "//:debian13-root",
         ":build-script",
-        ":datacore",
-        ":services",
+        ":wardlink-scripts",
+        ":systemd",
     ],
     extra_env_vars=["VERSION"],
     timeout=90,
     output_path="${target_name_normalized}${file_suffix}",
-    output_files=["orbitlab-datacore-*.tar.gz"],
+    output_files=["orbitlab-wardlink-*.tar.gz"],
 )

@@ -1,0 +1,17 @@
+{
+  "id": "conduit-a-01",
+  "targets": [
+    {
+      "service": "orders@etcd",
+      "url": "http://orders-1.sector.internal:8080",
+      "name": "orders-1",
+      "status": "UP"
+    },
+    {
+      "service": "orders@etcd",
+      "url": "http://orders-2.sector.internal:8080",
+      "name": "orders-2",
+      "status": "DOWN"
+    }
+  ]
+}

@@ -9,8 +9,6 @@ Type=oneshot
 ExecStart=/usr/bin/gateway-init
 ExecStopPost=/usr/bin/rm -f /run/orbitlab/gateway-ready
 RemainAfterExit=yes
-StandardOutput=journal
-StandardError=journal
 
 [Install]
 WantedBy=multi-user.target

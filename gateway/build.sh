@@ -2,42 +2,47 @@
 
 set -eou pipefail
 
+version="${VERSION:-dev}"
+
 # Prep
-rm -f orbitlab-gateway-*.tar.gz
 declare -a SERVICES=(nftables frr dnsmasq)
 
 # Runs setup commands
-source "$CHROOT/common.sh"
+# shellcheck source=common.sh
+source ../common.sh
+mkdir mnt
+sudo tar -xzf ../debian13-root.tar.gz -C mnt
+initRoot
 
 # Install pacakges
-sudo chroot "$CHROOT/mnt" apt install -y frr nftables dnsmasq 
+sudo chroot mnt apt install -y frr nftables dnsmasq etcd-client
 
 # Make necessary directories
-sudo mkdir "$CHROOT/mnt/etc/coredns"
-sudo mkdir "$CHROOT/mnt/var/local/dnsmasq"
-sudo mkdir "$CHROOT/mnt/etc/systemd/system-preset"
+sudo mkdir mnt/etc/coredns
+sudo mkdir mnt/var/local/dnsmasq
+sudo mkdir mnt/etc/systemd/system-preset
 
 # Install custom files
-sudo install -Dm755 "$CHROOT/gateway/gateway-init.sh" "$CHROOT/mnt/usr/bin/gateway-init"
-sudo install -Dm755 "$CHROOT/coredns/coredns" "$CHROOT/mnt/usr/bin/coredns"
-sudo install -Dm755 "$CHROOT/gateway/dhcp-to-hosts.sh" "$CHROOT/mnt/var/local/dnsmasq"
-sudo cp "$CHROOT/gateway/sector-gateway.service" "$CHROOT/mnt/usr/lib/systemd/system"
-sudo cp "$CHROOT/gateway/coredns.service" "$CHROOT/mnt/usr/lib/systemd/system"
+sudo install -Dm755 gateway-init.sh mnt/usr/bin/gateway-init
+sudo install -Dm755 ../coredns/coredns mnt/usr/bin/coredns
+sudo install -Dm755 relay.sh mnt/var/local/dnsmasq
+sudo cp sector-gateway.service mnt/usr/lib/systemd/system
+sudo cp coredns.service mnt/usr/lib/systemd/system
 # Add systemd preset to disable systemd-networkd-wait-online.service
 # Proxmox uses ifupdown2 and /etc/network/interfaces and not systemd for LXC and 
 # dnsmasq hangs waiting for network-online.target which is waiting for systemd-networkd-wait-online.service
-sudo cp "$CHROOT/gateway/01-orbitlab.preset" "$CHROOT/mnt/etc/systemd/system-preset/01-orbitlab.preset"
+sudo cp 01-orbitlab.preset mnt/etc/systemd/system-preset/01-orbitlab.preset
 
 # Delete default configs so we can initialize them later
-sudo rm -f "$CHROOT/mnt/etc/nftables.conf"
-sudo rm -f "$CHROOT/mnt/etc/frr/frr.conf"
-sudo rm -f "$CHROOT/mnt/etc/dnsmasq.conf"
+sudo rm -f mnt/etc/nftables.conf
+sudo rm -f mnt/etc/frr/frr.conf
+sudo rm -f mnt/etc/dnsmasq.conf
 
 # Add necessary service file overrides
 for service in "${SERVICES[@]}"; do
-    sudo mkdir "$CHROOT/mnt/etc/systemd/system/$service.service.d"
-    sudo cp "$CHROOT/gateway/orbitlab.conf" "$CHROOT/mnt/etc/systemd/system/$service.service.d"
+    sudo mkdir "mnt/etc/systemd/system/$service.service.d"
+    sudo cp orbitlab.conf "mnt/etc/systemd/system/$service.service.d"
 done
 
 cleanup
-sudo tar --numeric-owner -czf "orbitlab-gateway-${version}.tar.gz" -C "$CHROOT/mnt" .
+sudo tar --numeric-owner -czf "orbitlab-gateway-${version}.tar.gz" -C mnt .

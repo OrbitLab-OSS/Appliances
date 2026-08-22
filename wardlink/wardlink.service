@@ -1,0 +1,13 @@
+[Unit]
+Description=WardLink/WireGuard
+After=networking.service
+Wants=networking.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/wardlink
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

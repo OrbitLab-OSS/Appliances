@@ -1,0 +1,16 @@
+[Unit]
+Description=ETCD
+Documentation=https://etcd.io/docs/v3.6/
+Wants=network.target
+After=network.target
+ConditionPathExists=/etc/default/etcd
+
+[Service]
+EnvironmentFile=/etc/default/etcd
+WorkingDirectory=/var/local/etcd
+ExecStart=/usr/bin/etcd
+ExecStopPost=/usr/bin/etcd-mgr failover
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

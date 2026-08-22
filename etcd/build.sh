@@ -2,18 +2,28 @@
 
 set -eou pipefail
 
-# Prep
-rm -f orbitlab-etcd-*.tar.gz
+version="${VERSION:-dev}"
 
 # Runs setup commands
-source "$CHROOT/common.sh"
+# shellcheck source=common.sh
+source ../common.sh
+mkdir mnt
+sudo tar -xzf ../debian13-root.tar.gz -C mnt
+initRoot
+
+# Install pacakges
+sudo chroot mnt apt install -y jq
 
 # Install tools
-sudo install -Dm755 "$CHROOT/etcd/etcd-mgr.sh" "$CHROOT/mnt/usr/bin/etcd-mgr"
-sudo install -Dm755 "$CHROOT/etcd/etcd" "$CHROOT/mnt/usr/bin/etcd"
-sudo install -Dm755 "$CHROOT/etcd/etcdctl" "$CHROOT/mnt/usr/bin/etcdctl"
-sudo install -Dm755 "$CHROOT/etcd/etcdutl" "$CHROOT/mnt/usr/bin/etcdutl"
-sudo cp "$CHROOT/etcd/etcd-bootstrap.service" "$CHROOT/mnt/usr/lib/systemd/system"
+sudo install -Dm755 etcd-mgr.sh mnt/usr/bin/etcd-mgr
+sudo install -Dm755 etcd-init.sh mnt/usr/bin/etcd-init
+sudo install -Dm755 etcd mnt/usr/bin
+sudo install -Dm755 etcdctl mnt/usr/bin
+sudo install -Dm755 etcdutl mnt/usr/bin
+sudo cp etcd.service mnt/usr/lib/systemd/system
+sudo cp etcd-bootstrap.service mnt/usr/lib/systemd/system
+sudo chroot mnt systemctl enable etcd-bootstrap
+sudo chroot mnt systemctl enable etcd
 
 cleanup
-sudo tar --numeric-owner -czf "orbitlab-etcd-${version}.tar.gz" -C "$CHROOT/mnt" .
+sudo tar --numeric-owner -czf "orbitlab-etcd-${version}.tar.gz" -C mnt .

@@ -1,0 +1,15 @@
+[Unit]
+Description=Conduit ACME storage sync
+After=networking.service conduit.service
+Wants=networking.service conduit.service
+
+[Service]
+Type=simple
+Environment=CONDUIT_NOTIFY_WARNINGS=0
+ExecStart=/usr/bin/conduit watch-acme
+WorkingDirectory=/var/lib/traefik
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

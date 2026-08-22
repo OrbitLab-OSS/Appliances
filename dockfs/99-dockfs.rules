@@ -1,0 +1,3 @@
+ACTION=="add", SUBSYSTEM=="block", ENV{DEVTYPE}=="disk", ENV{DEVLINKS}=="*disk/by-id/*scsi1*", TAG+="systemd", ENV{SYSTEMD_WANTS}+="dockfs-manage-datadisk.service"
+ACTION=="change", SUBSYSTEM=="block", ENV{DEVTYPE}=="disk", ENV{DEVLINKS}=="*disk/by-id/*scsi1*", TAG+="systemd", ENV{SYSTEMD_WANTS}+="dockfs-manage-datadisk.service"
+ACTION=="remove", SUBSYSTEM=="block", ENV{DEVTYPE}=="disk", ENV{DEVLINKS}=="*disk/by-id/*scsi1*", TAG+="systemd", ENV{SYSTEMD_WANTS}+="dockfs-manage-datadisk.service"

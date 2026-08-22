@@ -1,0 +1,16 @@
+[Unit]
+Description=Conduit sector ingress powered by Traefik
+After=networking.service
+Wants=networking.service
+
+[Service]
+Type=simple
+ExecStartPre=/usr/bin/conduit render
+EnvironmentFile=/etc/default/conduit
+ExecStart=/usr/bin/traefik --configFile=/etc/traefik/traefik.yaml
+WorkingDirectory=/var/lib/traefik
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

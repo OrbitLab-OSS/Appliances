@@ -1,0 +1,5 @@
+{
+  "node": "dcc-abcdefg1234",
+  "role": "primary|replica",
+  "event": "on_start|on_stop|on_role_change"
+}

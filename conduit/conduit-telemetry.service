@@ -1,0 +1,13 @@
+[Unit]
+Description=Conduit Traefik health telemetry reporter
+After=networking.service conduit.service
+Wants=networking.service conduit.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/conduit-telemetry
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

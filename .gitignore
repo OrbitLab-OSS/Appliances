@@ -1,6 +1,4 @@
-# Repo-related
-orbitlab-*.tar.gz
-orbitlab-*.qcow2
+# Pants
 .pants.d/
 
 # Byte-compiled / optimized / DLL files

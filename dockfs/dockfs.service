@@ -1,0 +1,15 @@
+[Unit]
+Description=DockFS Configuration
+After=network-online.target systemd-udev-settle.service
+Wants=network-online.target systemd-udev-settle.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/dockfs-init
+Restart=on-failure
+RestartSec=5
+TimeoutStartSec=0
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
